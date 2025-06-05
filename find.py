@@ -38,7 +38,7 @@ branches= list(selected_repo.get_branches())
 for branch in branches:
     branch_name = branch.name
     commit = selected_repo.get_commit(sha=branch.commit.sha)
-    commit_date = commit.commit.author.date
+    commit_date = commit.commit.committer.date
     if commit_date.tzinfo is None:
         commit_date = commit_date.replace(tzinfo=timezone.utc)
     difference = checktimedelta(commit_date)
@@ -50,11 +50,12 @@ for branch in branches:
 
     branch_info_list.append({
         "repository": repo.name,
-        
+
         "branch": branch_name,
         "date": commit_date ,
         "timedeltacheak": difference
-    })      
+    })
+print(difference)          
 
 
 
