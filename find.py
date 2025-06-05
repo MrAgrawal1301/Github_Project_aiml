@@ -55,7 +55,7 @@ for branch in branches:
         "date": commit_date ,
         "timedeltacheak": difference
     })
-print(difference)          
+    print(difference)          
 
 
 
