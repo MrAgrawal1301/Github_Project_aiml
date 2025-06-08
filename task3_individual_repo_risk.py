@@ -59,6 +59,7 @@ def main():
     selected_repo = list(repos)[select_repo]
     selected_repo_name = selected_repo.name 
     branches = selected_repo.get_branches()
+    found_stale_branch = False
     for branch in branches:
         if branch.name != 'main':    
             branch_name = branch.name
@@ -66,6 +67,7 @@ def main():
             commit_date = commit.commit.committer.date 
             difference = cheak_time_delta(commit_date)
             if difference > timedelta(hours=stale_threshold_hours):
+                found_stale_branch = True
                 stale_branch_url = f"https://github.com/{user.login}/{selected_repo_name}/tree/{branch_name}"
                 difference_days = difference.days
                 risk_score = get_risk_score(difference_days)
@@ -73,6 +75,9 @@ def main():
                 author_name = commit_author.login if commit_author else "Unknown"
                 print(f'{index}. [Repo Name: {selected_repo_name},\n Stale Branch url: {stale_branch_url},\n Author Name of Branch: {author_name},\n Last commit is ({difference}) old],\n Risk Level: {risk_score}]')
                 index += 1
+                print("Stale branch can me deleted")
+    if not found_stale_branch:
+        print('No Stale branch')
 
 if __name__ == '__main__':
     main()
