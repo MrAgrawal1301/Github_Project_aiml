@@ -12,7 +12,7 @@ repos = user.get_repos()
 print('The Authenticated User is:',user.login)
 
 try:
-    stale_threshold_hours = int(input("Enter the number of hours to define a pull request: "))
+    stale_threshold_hours = int(input("Enter the number of hours to define a stale branch: "))
 except ValueError:
     print("Invalid input. Please enter a valid number.")
 
