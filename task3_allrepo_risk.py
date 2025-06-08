@@ -57,6 +57,7 @@ def main():
                     commit_author = commit.author
                     author_name = commit_author.login if commit_author else "Unknown"
                     print(f'{index}. [Repo Name: {repo_name},\n Stale Branch url: {stale_branch_url},\n Author Name of Branch: {author_name},\n Last commit is ({difference}) old],\n Risk Level: {risk_score}]')
-                    index += 1
+                    index += 1  
+                             
 if __name__ == '__main__':
     main()
