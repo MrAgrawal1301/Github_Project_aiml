@@ -37,8 +37,8 @@ def get_risk_score(stale_time):
             break
         else:
             level_of_risk = f"Critical Risk --> The Stale branch is {stale_time} days old"   
-    return level_of_risk  
-
+    return level_of_risk 
+ 
 def main():
     index = 1  
     for repo in repos:
