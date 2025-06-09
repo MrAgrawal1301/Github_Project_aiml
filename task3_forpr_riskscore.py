@@ -14,7 +14,7 @@ def check_timedelta(timestamp):
         timestamp = timestamp.replace(tzinfo = timezone.utc)
     now = datetime.now(timezone.utc)
     difference = now - timestamp
-    return timestamp 
+    return difference 
 
 def get_risk_score(created_day):
     risk_score = {
@@ -38,16 +38,24 @@ def main():
     for repo in repos:
         repo_name = repo.name
         prs = repo.get_pulls(state='all')
-        filebook = []
         for pr in prs:
+            filebook = []
+            commitbook = []
             created_time = pr.created_at
             time_difference_from_created_date = check_timedelta(created_time)
-            difference_createdat_in_days = time_difference_from_created_date.day
+            difference_createdat_in_days = time_difference_from_created_date.days
             risk_level = get_risk_score(difference_createdat_in_days)
             files =pr.get_files()
             for file in files:
-                filebook.append(file.filename)        
-            pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} |Risk Level: {risk_level} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
+                filebook.append(file.filename)
+            commits = pr.get_commits()  
+            for commit in commits:
+                dateis = commit.commit.committer.date
+                difference = check_timedelta(dateis)
+                difference = str(difference)
+                commitbook.append(difference)
+                print(difference)          
+            pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Number of commits: {pr.commits} | 'How olds are commits':{commitbook} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} |Risk Level: {risk_level} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
             print(f"{index}. {pr_details}")
             index += 1
 
