@@ -47,7 +47,7 @@ def main():
             files =pr.get_files()
             for file in files:
                 filebook.append(file.filename)        
-            pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
+            pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} |Risk Level: {risk_level} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
             print(f"{index}. {pr_details}")
             index += 1
 
