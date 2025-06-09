@@ -52,10 +52,19 @@ def main():
             for commit in commits:
                 dateis = commit.commit.committer.date
                 difference = check_timedelta(dateis)
-                difference = str(difference)
                 commitbook.append(difference)
-                print(difference)          
-            pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Number of commits: {pr.commits} | 'How olds are commits':{commitbook} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} |Risk Level: {risk_level} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
+            timeoffrequancy = 1    
+            freqancy = 'Not Enough Data'
+            if len(commitbook) > 1:
+                for i in range(len(commitbook) - 1):
+                    diff = commitbook[i + 1] - commitbook[i]
+                    if diff < timedelta(minutes=timeoffrequancy):
+                        freqancy = 'Consistent'
+                        break
+                    else:
+                        freqancy = 'Inconsistent'
+
+            pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Number of commits: {pr.commits} |{freqancy} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} |Risk Level: {risk_level} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
             print(f"{index}. {pr_details}")
             index += 1
 
