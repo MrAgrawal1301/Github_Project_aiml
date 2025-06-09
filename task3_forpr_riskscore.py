@@ -63,7 +63,7 @@ def main():
                         break
                     else:
                         freqancy = 'Inconsistent'
-
+        
             pr_details = f"[Repo Name: {repo_name} | PullRequest: {pr.title} | Number of commits: {pr.commits} |{freqancy} | Author: {pr.user.login} | State: {pr.state} | Created at: {pr.created_at} | Seen at: {pr.closed_at} |Risk Level: {risk_level} | Merge Date: {pr.merged_at} | Merged by: {pr.merged_by} | When the pr was again updated: {pr.updated_at} | Files in which changes were done: {filebook}]"
             print(f"{index}. {pr_details}")
             index += 1
