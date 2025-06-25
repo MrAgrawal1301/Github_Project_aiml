@@ -7,6 +7,8 @@ token  = os.getenv("GITHUB_TOKEN")
 
 # Public Web Github
 g = Github(token)
+user = g.get_user()
+print(f"User Name is: {user.login}")
 staletime = int(input("Enter No. of Hours:"))
     
 
@@ -16,8 +18,6 @@ def checktimedelta(timestamp):
     difference = now - timestamp
     return difference
 
-user = g.get_user()
-print(f"User Name is: {user.login}")
 branch_info_list = []
 delete_branches = []
 grouped_list = []
